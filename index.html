@@ -1,1124 +1,265 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RELATIONLINE - Irene Cárdenas</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: #000;
-            color: #fff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Fondo con partículas doradas */
-        .bg-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: radial-gradient(circle, #fbbf24, transparent);
-            border-radius: 50%;
-            animation: float 15s infinite;
-            opacity: 0;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) translateX(50px);
-                opacity: 0;
-            }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Header con efectos de lujo */
-        .header {
-            text-align: center;
-            margin-bottom: 4rem;
-            animation: fadeInDown 1.5s ease;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 25%, #fbbf24 50%, #f59e0b 75%, #fbbf24 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 0.1em;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 80px rgba(251, 191, 36, 0.5);
-            animation: shimmer 3s ease-in-out infinite;
-        }
-
-        @keyframes shimmer {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .specialty {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 3rem;
-            opacity: 0;
-            animation: fadeIn 1.5s ease 0.5s forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .line {
-            height: 2px;
-            width: 6rem;
-            background: linear-gradient(to right, transparent, #f59e0b, transparent);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .line::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.8), transparent);
-            animation: lineShine 2s ease-in-out infinite;
-        }
-
-        @keyframes lineShine {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
-        }
-
-        .specialty-text {
-            color: #fcd34d;
-            font-size: 0.875rem;
-            letter-spacing: 0.2em;
-            font-weight: 400;
-            text-transform: uppercase;
-        }
-
-        .methodology-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
-            padding: 0.3rem;
-            border-radius: 1rem;
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeIn 1.5s ease 1s forwards, pulse 2s ease-in-out 2s infinite;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .methodology-badge::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, #fbbf24, transparent 30%);
-            animation: rotate 4s linear infinite;
-        }
-
-        @keyframes rotate {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        .methodology-inner {
-            background: linear-gradient(135deg, #fbbf24, #eab308, #f59e0b);
-            padding: 1.5rem 3rem;
-            border-radius: 0.875rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .methodology-badge h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #000;
-            letter-spacing: 0.2em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .methodology-badge p {
-            font-size: 0.7rem;
-            letter-spacing: 0.3em;
-            font-weight: 700;
-            color: #000;
-            opacity: 0.8;
-            margin-top: 0.25rem;
-            text-transform: uppercase;
-        }
-
-        .subtitle {
-            font-size: 1.75rem;
-            color: #fcd34d;
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: fadeIn 1.5s ease 1.5s forwards;
-        }
-
-        .premium-badge {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            opacity: 0;
-            animation: fadeIn 1.5s ease 2s forwards;
-        }
-
-        .icon-award {
-            color: #fbbf24;
-            filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.5));
-            animation: rotate 20s linear infinite;
-        }
-
-        .premium-text {
-            font-size: 1.125rem;
-            color: #d1d5db;
-            font-weight: 400;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-        }
-
-        /* Timeline mejorada */
-        .timeline {
-            position: relative;
-            margin-top: 6rem;
-        }
-
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 3px;
-            height: calc(100% - 120px);
-            background: linear-gradient(to bottom, #fbbf24, #eab308, #f59e0b, #fbbf24);
-            top: 60px;
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
-        }
-
-        .timeline-line::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 10px;
-            height: 10px;
-            background: #fbbf24;
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-dot {
-            0%, 100% {
-                transform: translateX(-50%) scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: translateX(-50%) scale(1.5);
-                opacity: 0.5;
-            }
-        }
-
-        .stage {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 3rem;
-            margin-bottom: 4rem;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(60px) scale(0.9);
-            transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .stage.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .stage:nth-child(even) .stage-content {
-            order: 3;
-        }
-
-        .stage:nth-child(even) .stage-number {
-            order: 2;
-        }
-
-        .stage:nth-child(even) .stage-spacer {
-            order: 1;
-        }
-
-        .stage-content {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%);
-            border: 2px solid #f59e0b;
-            border-radius: 1.5rem;
-            padding: 2.5rem;
-            box-shadow: 
-                0 25px 50px -12px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(251, 191, 36, 0.1),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-
-        .stage-content::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .stage-content:hover::before {
-            opacity: 1;
-        }
-
-        .stage-content:hover {
-            transform: scale(1.05) translateY(-10px);
-            box-shadow: 
-                0 35px 60px -15px rgba(251, 191, 36, 0.4),
-                0 0 0 2px rgba(251, 191, 36, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            border-color: #fbbf24;
-        }
-
-        .stage-icon-wrapper {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            width: 5rem;
-            height: 5rem;
-            opacity: 0.15;
-            transition: all 0.5s ease;
-        }
-
-        .stage-content:hover .stage-icon-wrapper {
-            opacity: 0.3;
-            transform: scale(1.2) rotate(10deg);
-        }
-
-        .stage:nth-child(even) .stage-icon-wrapper {
-            right: auto;
-            left: 2rem;
-        }
-
-        .stage-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #fbbf24, #eab308);
-            color: #000;
-            padding: 0.5rem 1.5rem;
-            border-radius: 2rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            box-shadow: 0 10px 20px -5px rgba(251, 191, 36, 0.4);
-            margin-bottom: 1.25rem;
-            text-transform: uppercase;
-        }
-
-        .stage-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: 0.02em;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-
-        .stage-subtitle {
-            color: #fbbf24;
-            font-size: 1.25rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            margin-bottom: 1.25rem;
-            font-style: italic;
-        }
-
-        .stage-description {
-            color: #e5e7eb;
-            line-height: 1.8;
-            font-weight: 300;
-            font-size: 1.05rem;
-        }
-
-        .stage-number {
-            width: 6rem;
-            height: 6rem;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #fbbf24, #eab308);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #000;
-            box-shadow: 
-                0 25px 50px -12px rgba(251, 191, 36, 0.6),
-                0 0 0 8px #000,
-                0 0 0 10px rgba(251, 191, 36, 0.3);
-            z-index: 10;
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-        }
-
-        .stage-number::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #fbbf24, transparent);
-            opacity: 0;
-            animation: pulse-ring 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-ring {
-            0% {
-                transform: scale(1);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        .stage:not(.visible) .stage-number {
-            transform: scale(0) rotate(-180deg);
-            opacity: 0;
-        }
-
-        .stage.visible .stage-number {
-            transform: scale(1) rotate(0deg);
-            opacity: 1;
-        }
-
-        /* VIP Section Premium */
-        .vip-section {
-            margin-top: 8rem;
-            position: relative;
-        }
-
-        .vip-section::before {
-            content: '';
-            position: absolute;
-            top: -2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 1px;
-            background: linear-gradient(to right, transparent, #f59e0b, transparent);
-        }
-
-        .vip-header {
-            text-align: center;
-            margin-bottom: 4rem;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards;
-        }
-
-        .vip-header.visible {
-            animation: fadeInUp 1s ease forwards;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .vip-title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .vip-title h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #fbbf24, #eab308);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 0.1em;
-        }
-
-        .star-icon {
-            color: #fbbf24;
-            filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
-            animation: twinkle 2s ease-in-out infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 0.5;
-                transform: scale(0.9);
-            }
-        }
-
-        .vip-subtitle {
-            color: #9ca3af;
-            font-size: 1rem;
-            letter-spacing: 0.1em;
-            font-weight: 300;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .benefit-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.8) 100%);
-            border: 2px solid rgba(245, 158, 11, 0.3);
-            border-radius: 1.5rem;
-            padding: 2.5rem 2rem;
-            text-align: center;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            backdrop-filter: blur(10px);
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .benefit-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .benefit-card:hover {
-            border-color: #fbbf24;
-            transform: translateY(-15px) scale(1.05);
-            box-shadow: 
-                0 30px 60px -15px rgba(251, 191, 36, 0.4),
-                0 0 0 1px rgba(251, 191, 36, 0.2);
-        }
-
-        .benefit-icon {
-            width: 5rem;
-            height: 5rem;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #fbbf24, #eab308);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            box-shadow: 
-                0 20px 40px -10px rgba(251, 191, 36, 0.5),
-                inset 0 -3px 0 rgba(0, 0, 0, 0.2);
-            transition: all 0.5s ease;
-            position: relative;
-        }
-
-        .benefit-card:hover .benefit-icon {
-            transform: rotateY(360deg) scale(1.1);
-            box-shadow: 
-                0 30px 60px -15px rgba(251, 191, 36, 0.8),
-                inset 0 -3px 0 rgba(0, 0, 0, 0.3);
-        }
-
-        .benefit-icon::before {
-            content: '';
-            position: absolute;
-            width: 120%;
-            height: 120%;
-            border-radius: 50%;
-            border: 2px solid #fbbf24;
-            opacity: 0;
-            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-        }
-
-        @keyframes ping {
-            75%, 100% {
-                transform: scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        .benefit-title {
-            font-family: 'Playfair Display', serif;
-            color: #fbbf24;
-            font-weight: 700;
-            font-size: 1.25rem;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.75rem;
-        }
-
-        .benefit-description {
-            color: #d1d5db;
-            font-size: 0.95rem;
-            font-weight: 300;
-            line-height: 1.6;
-        }
-
-        /* Footer Premium */
-        .footer {
-            margin-top: 6rem;
-            text-align: center;
-        }
-
-        .footer-box {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(0, 0, 0, 0.95) 100%);
-            border: 3px solid #f59e0b;
-            border-radius: 2rem;
-            padding: 3.5rem 2.5rem;
-            box-shadow: 
-                0 35px 70px -15px rgba(251, 191, 36, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
-            animation: shine 3s ease-in-out infinite;
-        }
-
-        @keyframes shine {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
-        }
-
-        .footer-title-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #fbbf24, #eab308);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 0.05em;
-        }
-
-        .footer-text {
-            font-size: 1.25rem;
-            color: #e5e7eb;
-            line-height: 1.8;
-            max-width: 50rem;
-            margin: 0 auto 2.5rem;
-            font-weight: 300;
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-badge-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.25rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .sparkle-icon {
-            color: #fbbf24;
-            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.6));
-            animation: sparkle 1.5s ease-in-out infinite;
-        }
-
-        @keyframes sparkle {
-            0%, 100% {
-                transform: scale(1) rotate(0deg);
-            }
-            50% {
-                transform: scale(1.2) rotate(180deg);
-            }
-        }
-
-        .footer-badge-text {
-            font-size: 1.35rem;
-            font-weight: 300;
-            color: #fcd34d;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        .exclusivity-badge {
-            margin-top: 4rem;
-            text-align: center;
-            opacity: 0;
-            animation: fadeIn 1.5s ease 0.5s forwards;
-        }
-
-        .exclusivity-border {
-            display: inline-block;
-            border: 2px solid rgba(245, 158, 11, 0.4);
-            border-radius: 3rem;
-            padding: 1rem 3rem;
-            background: rgba(251, 191, 36, 0.05);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .exclusivity-border:hover {
-            border-color: #fbbf24;
-            background: rgba(251, 191, 36, 0.1);
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.2);
-        }
-
-        .exclusivity-text {
-            color: rgba(251, 191, 36, 0.9);
-            font-size: 0.85rem;
-            letter-spacing: 0.2em;
-            font-weight: 400;
-            text-transform: uppercase;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.5rem;
-            }
-
-            .methodology-badge h2 {
-                font-size: 1.75rem;
-                letter-spacing: 0.15em;
-            }
-
-            .subtitle {
-                font-size: 1.25rem;
-            }
-
-            .timeline-line {
-                display: none;
-            }
-
-            .stage {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-
-            .stage-number,
-            .stage-spacer {
-                display: none;
-            }
-
-            .stage:nth-child(even) .stage-content {
-                order: 1;
-            }
-
-            .stage-content {
-                padding: 2rem;
-            }
-
-            .stage-title {
-                font-size: 1.5rem;
-            }
-
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .vip-title h3 {
-                font-size: 1.75rem;
-            }
-
-            .footer-title {
-                font-size: 1.75rem;
-            }
-
-            .footer-text {
-                font-size: 1.05rem;
-            }
-        }
-
-        /* Icons mejorados */
-        .icon {
-            width: 28px;
-            height: 28px;
-            stroke-width: 2;
-        }
-
-        .icon-large {
-            width: 36px;
-            height: 36px;
-            stroke-width: 2.5;
-        }
-    </style>
-</head>
-<body>
-    <!-- Partículas de fondo -->
-    <div class="bg-particles" id="particles"></div>
-
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>IRENE CÁRDENAS</h1>
-            
-            <div class="specialty">
-                <div class="line"></div>
-                <p class="specialty-text">Especialista en Relaciones Narcisistas y Psicopáticas</p>
-                <div class="line"></div>
+import React, { useState, useEffect } from 'react';
+import { Heart, Droplet, Sparkles, Award, Shield, Users, BookOpen, Star } from 'lucide-react';
+
+export default function MetodologiaSanacion() {
+  const [visibleStages, setVisibleStages] = useState([]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const stages = document.querySelectorAll('.stage-card');
+      stages.forEach((stage, index) => {
+        const rect = stage.getBoundingClientRect();
+        const isVisible = rect.top < window.innerHeight * 0.8;
+        if (isVisible && !visibleStages.includes(index)) {
+          setVisibleStages(prev => [...prev, index]);
+        }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial visibility
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [visibleStages]);
+
+  const etapas = [
+    {
+      numero: 1,
+      titulo: "Desinfección de la Herida",
+      subtitulo: "Identificar para Transformar",
+      descripcion: "Identificación profunda de los patrones de comportamiento en las relaciones de pareja",
+      color: "from-amber-400 via-yellow-500 to-amber-600",
+      colorBg: "bg-gradient-to-br from-slate-900 to-slate-800",
+      colorBorder: "border-amber-500",
+      icon: Droplet,
+      iconColor: "text-amber-400",
+      illustration: (
+        <svg viewBox="0 0 100 100" className="w-24 h-24">
+          <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" strokeWidth="2" className="text-amber-500/30" />
+          <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" strokeWidth="2" className="text-amber-500/50" />
+          <circle cx="50" cy="50" r="15" fill="currentColor" className="text-amber-400" opacity="0.6" />
+          <path d="M 50 20 L 50 35 M 50 65 L 50 80 M 20 50 L 35 50 M 65 50 L 80 50" stroke="currentColor" strokeWidth="2" className="text-amber-400" />
+        </svg>
+      )
+    },
+    {
+      numero: 2,
+      titulo: "Cicatrización",
+      subtitulo: "Comprender y Liberar",
+      descripcion: "Exploración del origen de los patrones en las primeras figuras de afecto y dinámicas relacionales de la infancia. Disminución del dolor de las memorias emocionales",
+      color: "from-amber-400 via-yellow-500 to-amber-600",
+      colorBg: "bg-gradient-to-br from-slate-900 to-slate-800",
+      colorBorder: "border-amber-500",
+      icon: Heart,
+      iconColor: "text-amber-400",
+      illustration: (
+        <svg viewBox="0 0 100 100" className="w-24 h-24">
+          <path d="M 50 75 Q 25 50 25 35 Q 25 20 37.5 20 Q 50 20 50 35" fill="none" stroke="currentColor" strokeWidth="2" className="text-amber-500/50" />
+          <path d="M 50 75 Q 75 50 75 35 Q 75 20 62.5 20 Q 50 20 50 35" fill="none" stroke="currentColor" strokeWidth="2" className="text-amber-500/50" />
+          <path d="M 30 50 Q 50 40 70 50" stroke="currentColor" strokeWidth="3" className="text-amber-400" fill="none" />
+          <circle cx="50" cy="45" r="3" fill="currentColor" className="text-amber-400" />
+        </svg>
+      )
+    },
+    {
+      numero: 3,
+      titulo: "Una Herida que Ya No Duele",
+      subtitulo: "Nuevos Estándares",
+      descripcion: "Diseño de estándares no negociables y plan de acción personalizado para priorización personal. Nueva forma de elegir relaciones basada en el autoconocimiento",
+      color: "from-amber-400 via-yellow-500 to-amber-600",
+      colorBg: "bg-gradient-to-br from-slate-900 to-slate-800",
+      colorBorder: "border-amber-500",
+      icon: Sparkles,
+      iconColor: "text-amber-400",
+      illustration: (
+        <svg viewBox="0 0 100 100" className="w-24 h-24">
+          <path d="M 50 20 L 55 40 L 75 45 L 60 60 L 63 80 L 50 70 L 37 80 L 40 60 L 25 45 L 45 40 Z" fill="currentColor" className="text-amber-400" opacity="0.6" />
+          <circle cx="50" cy="50" r="8" fill="currentColor" className="text-amber-300" />
+          <path d="M 50 30 L 50 35 M 50 65 L 50 70 M 30 50 L 35 50 M 65 50 L 70 50" stroke="currentColor" strokeWidth="2.5" className="text-amber-200" strokeLinecap="round" />
+        </svg>
+      )
+    }
+  ];
+
+  const beneficios = [
+    {
+      icon: Shield,
+      titulo: "Acompañamiento Personal",
+      descripcion: "Sesiones individuales personalizadas"
+    },
+    {
+      icon: Users,
+      titulo: "Sesiones Grupales",
+      descripcion: "Comunidad exclusiva de transformación"
+    },
+    {
+      icon: BookOpen,
+      titulo: "Materiales Exclusivos",
+      descripcion: "Recursos premium durante todo el proceso"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-black p-8">
+      <div className="max-w-6xl mx-auto">
+        {/* Header con nombre */}
+        <div className="text-center mb-16">
+          <div className="mb-10">
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent mb-4 tracking-wider">
+              IRENE CÁRDENAS
+            </h1>
+            <div className="flex items-center justify-center gap-3 mb-8">
+              <div className="h-px w-16 bg-gradient-to-r from-transparent to-amber-500"></div>
+              <p className="text-amber-200 text-xs md:text-sm tracking-widest font-light">ESPECIALISTA EN RELACIONES NARCISISTAS Y PSICOPÁTICAS</p>
+              <div className="h-px w-16 bg-gradient-to-l from-transparent to-amber-500"></div>
             </div>
+          </div>
 
-            <div class="methodology-badge">
-                <div class="methodology-inner">
-                    <h2>RELATIONLINE</h2>
-                    <p>Metodología Exclusiva</p>
-                </div>
+          <div className="mb-8">
+            <div className="inline-block bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-black px-8 py-3 rounded-lg shadow-2xl border-2 border-amber-300">
+              <h2 className="text-2xl md:text-3xl font-bold tracking-wider">RELATIONLINE</h2>
+              <p className="text-[10px] tracking-widest mt-1 font-semibold opacity-70">METODOLOGÍA EXCLUSIVA</p>
             </div>
-
-            <p class="subtitle">Transformación de Patrones y Repriorización Personal</p>
-
-            <div class="premium-badge">
-                <div class="line"></div>
-                <svg class="icon icon-award" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <circle cx="12" cy="8" r="7"/>
-                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
-                </svg>
-                <p class="premium-text">Programa Premium</p>
-                <svg class="icon icon-award" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <circle cx="12" cy="8" r="7"/>
-                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
-                </svg>
-                <div class="line"></div>
-            </div>
+          </div>
+          
+          <p className="text-lg md:text-xl text-amber-200 mt-6 font-light tracking-wide mb-6">
+            Transformación de Patrones y Repriorización Personal
+          </p>
+          
+          <div className="flex items-center justify-center gap-3">
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-amber-500"></div>
+            <Award className="text-amber-400" size={20} />
+            <p className="text-sm text-gray-300 font-light tracking-wider">PROGRAMA PREMIUM</p>
+            <Award className="text-amber-400" size={20} />
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-amber-500"></div>
+          </div>
         </div>
 
-        <!-- Timeline -->
-        <div class="timeline">
-            <div class="timeline-line"></div>
+        {/* Timeline Container */}
+        <div className="relative">
+          {/* Línea conectora vertical */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-amber-400 via-yellow-500 to-amber-600 hidden md:block" 
+               style={{top: '60px', height: 'calc(100% - 120px)'}}></div>
 
-            <!-- Etapa 1 -->
-            <div class="stage">
-                <div class="stage-content">
-                    <div class="stage-icon-wrapper">
-                        <svg viewBox="0 0 100 100">
-                            <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="2" style="color: rgba(245, 158, 11, 0.4)" />
-                            <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" stroke-width="2" style="color: rgba(245, 158, 11, 0.6)" />
-                            <circle cx="50" cy="50" r="15" fill="currentColor" style="color: #fbbf24; opacity: 0.7" />
-                            <path d="M 50 20 L 50 35 M 50 65 L 50 80 M 20 50 L 35 50 M 65 50 L 80 50" stroke="currentColor" stroke-width="2.5" style="color: #fbbf24" />
-                        </svg>
+          {/* Etapas */}
+          <div className="space-y-12">
+            {etapas.map((etapa, index) => (
+              <div 
+                key={etapa.numero} 
+                className={`stage-card flex items-center gap-8 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} transition-all duration-1000 ${
+                  visibleStages.includes(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+              >
+                {/* Contenido */}
+                <div className={`flex-1 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+                  <div className={`${etapa.colorBg} border-2 ${etapa.colorBorder} rounded-xl p-8 shadow-2xl transform transition-all hover:scale-105 hover:shadow-amber-500/30 relative overflow-hidden`}>
+                    {/* Ilustración de fondo */}
+                    <div className={`absolute ${index % 2 === 0 ? 'right-4' : 'left-4'} top-4 opacity-10`}>
+                      {etapa.illustration}
                     </div>
-                    
-                    <div class="stage-badge">Etapa 1</div>
-                    <h3 class="stage-title">Desinfección de la Herida</h3>
-                    <p class="stage-description">Identificación profunda de los patrones de comportamiento en las relaciones de pareja</p>
-                </div>
-                <div class="stage-number">1</div>
-                <div class="stage-spacer"></div>
-            </div>
 
-            <!-- Etapa 2 -->
-            <div class="stage">
-                <div class="stage-spacer"></div>
-                <div class="stage-number">2</div>
-                <div class="stage-content">
-                    <div class="stage-icon-wrapper">
-                        <svg viewBox="0 0 100 100">
-                            <path d="M 50 75 Q 25 50 25 35 Q 25 20 37.5 20 Q 50 20 50 35" fill="none" stroke="currentColor" stroke-width="2.5" style="color: rgba(245, 158, 11, 0.6)" />
-                            <path d="M 50 75 Q 75 50 75 35 Q 75 20 62.5 20 Q 50 20 50 35" fill="none" stroke="currentColor" stroke-width="2.5" style="color: rgba(245, 158, 11, 0.6)" />
-                            <path d="M 30 50 Q 50 40 70 50" stroke="currentColor" stroke-width="3.5" style="color: #fbbf24" fill="none" />
-                            <circle cx="50" cy="45" r="4" fill="currentColor" style="color: #fbbf24" />
-                        </svg>
-                    </div>
-                    
-                    <div class="stage-badge">Etapa 2</div>
-                    <h3 class="stage-title">Cicatrización</h3>
-                    <p class="stage-subtitle">Comprender y Liberar</p>
-                    <p class="stage-description">Exploración del origen de los patrones en las primeras figuras de afecto y dinámicas relacionales de la infancia. Disminución del dolor de las memorias emocionales</p>
-                </div>
-            </div>
+                    <div className="flex items-start gap-6 relative z-10">
+                      {index % 2 !== 0 && (
+                        <div className={`bg-gradient-to-br ${etapa.color} p-4 rounded-xl shadow-2xl flex-shrink-0`}>
+                          <etapa.icon size={36} className="text-black" />
+                        </div>
+                      )}
+                      
+                      <div className="flex-1">
+                        <div className={`inline-block bg-gradient-to-r ${etapa.color} text-black px-5 py-2 rounded-md text-xs font-bold tracking-widest mb-4 shadow-lg`}>
+                          ETAPA {etapa.numero}
+                        </div>
+                        
+                        <h2 className="text-2xl font-bold text-white mb-3 tracking-wide">
+                          {etapa.titulo}
+                        </h2>
+                        
+                        <p className={`${etapa.iconColor} font-semibold text-lg mb-4 tracking-wide`}>
+                          {etapa.subtitulo}
+                        </p>
+                        
+                        <p className="text-gray-300 leading-relaxed text-base font-light">
+                          {etapa.descripcion}
+                        </p>
+                      </div>
 
-            <!-- Etapa 3 -->
-            <div class="stage">
-                <div class="stage-content">
-                    <div class="stage-icon-wrapper">
-                        <svg viewBox="0 0 100 100">
-                            <path d="M 50 20 L 55 40 L 75 45 L 60 60 L 63 80 L 50 70 L 37 80 L 40 60 L 25 45 L 45 40 Z" fill="currentColor" style="color: #fbbf24; opacity: 0.7" />
-                            <circle cx="50" cy="50" r="10" fill="currentColor" style="color: #fcd34d" />
-                            <path d="M 50 30 L 50 35 M 50 65 L 50 70 M 30 50 L 35 50 M 65 50 L 70 50" stroke="currentColor" stroke-width="3" style="color: #fef3c7" stroke-linecap="round" />
-                        </svg>
+                      {index % 2 === 0 && (
+                        <div className={`bg-gradient-to-br ${etapa.color} p-4 rounded-xl shadow-2xl flex-shrink-0`}>
+                          <etapa.icon size={36} className="text-black" />
+                        </div>
+                      )}
                     </div>
-                    
-                    <div class="stage-badge">Etapa 3</div>
-                    <h3 class="stage-title">Una Herida que Ya No Duele</h3>
-                    <p class="stage-subtitle">Nuevos Estándares</p>
-                    <p class="stage-description">Diseño de estándares no negociables y plan de acción personalizado para priorización personal. Nueva forma de elegir relaciones basada en el autoconocimiento</p>
+                  </div>
                 </div>
-                <div class="stage-number">3</div>
-                <div class="stage-spacer"></div>
-            </div>
+
+                {/* Número circular en el centro (solo desktop) */}
+                <div className="hidden md:flex items-center justify-center flex-shrink-0">
+                  <div className={`bg-gradient-to-br ${etapa.color} w-20 h-20 rounded-full flex items-center justify-center text-black font-bold text-3xl shadow-2xl border-4 border-black z-10 transition-all duration-500 ${
+                    visibleStages.includes(index) ? 'scale-100 rotate-0' : 'scale-0 rotate-180'
+                  }`}>
+                    {etapa.numero}
+                  </div>
+                </div>
+
+                {/* Espacio para balance (solo desktop) */}
+                <div className="flex-1 hidden md:block"></div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <!-- VIP Section -->
-        <div class="vip-section">
-            <div class="vip-header">
-                <div class="vip-title">
-                    <svg class="icon star-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
-                    <h3>EXPERIENCIA VIP INCLUIDA</h3>
-                    <svg class="icon star-icon" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
-                </div>
-                <p class="vip-subtitle">Te acompañamos durante todo tu proceso de transformación</p>
+        {/* Sección de beneficios VIP */}
+        <div className="mt-20">
+          <div className="text-center mb-10">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <Star className="text-amber-400 fill-amber-400" size={24} />
+              <h3 className="text-3xl font-bold text-amber-400 tracking-wider">EXPERIENCIA VIP INCLUIDA</h3>
+              <Star className="text-amber-400 fill-amber-400" size={24} />
             </div>
+            <p className="text-gray-400 text-sm tracking-wide">Te acompañamos durante todo tu proceso de transformación</p>
+          </div>
 
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <svg class="icon-large" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                        </svg>
-                    </div>
-                    <h4 class="benefit-title">Acompañamiento Personal</h4>
-                    <p class="benefit-description">Sesiones individuales personalizadas</p>
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            {beneficios.map((beneficio, index) => (
+              <div key={index} className="bg-gradient-to-br from-slate-900 to-slate-800 border-2 border-amber-500/50 rounded-xl p-6 text-center hover:border-amber-400 transition-all hover:shadow-xl hover:shadow-amber-500/20">
+                <div className="bg-gradient-to-br from-amber-400 via-yellow-500 to-amber-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                  <beneficio.icon size={32} className="text-black" />
                 </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <svg class="icon-large" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                    </div>
-                    <h4 class="benefit-title">Sesiones Grupales</h4>
-                    <p class="benefit-description">Comunidad exclusiva de transformación</p>
-                </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-icon">
-                        <svg class="icon-large" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                        </svg>
-                    </div>
-                    <h4 class="benefit-title">Materiales Exclusivos</h4>
-                    <p class="benefit-description">Recursos premium durante todo el proceso</p>
-                </div>
-            </div>
+                <h4 className="text-amber-400 font-bold text-lg mb-2 tracking-wide">{beneficio.titulo}</h4>
+                <p className="text-gray-300 text-sm font-light">{beneficio.descripcion}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <div class="footer-box">
-                <div class="footer-title-wrapper">
-                    <div class="line"></div>
-                    <h3 class="footer-title">RESULTADO FINAL</h3>
-                    <div class="line"></div>
-                </div>
-                <p class="footer-text">
-                    Al completar este proceso, habrás transformado los patrones que limitaban tu capacidad de establecer relaciones saludables. 
-                    Estarás preparado/a para elegir conscientemente, priorizar tu bienestar y vivir desde el autoconocimiento.
-                </p>
-                <div class="footer-badge-wrapper">
-                    <svg class="icon sparkle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2l2 7h7l-5.5 4.5 2 7L12 16l-5.5 4.5 2-7L3 9h7z"/>
-                    </svg>
-                    <span class="footer-badge-text">Transformación Integral Garantizada</span>
-                    <svg class="icon sparkle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2l2 7h7l-5.5 4.5 2 7L12 16l-5.5 4.5 2-7L3 9h7z"/>
-                    </svg>
-                </div>
+        {/* Footer */}
+        <div className="mt-16 text-center">
+          <div className="bg-gradient-to-br from-slate-900 to-black rounded-xl p-10 shadow-2xl border-2 border-amber-500">
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="h-px w-16 bg-gradient-to-r from-transparent to-amber-500"></div>
+              <h3 className="text-3xl font-bold text-amber-400 tracking-wide">
+                RESULTADO FINAL
+              </h3>
+              <div className="h-px w-16 bg-gradient-to-l from-transparent to-amber-500"></div>
             </div>
+            <p className="text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto font-light">
+              Al completar este proceso, habrás transformado los patrones que limitaban tu capacidad de establecer relaciones saludables. 
+              Estarás preparado/a para elegir conscientemente, priorizar tu bienestar y vivir desde el autoconocimiento.
+            </p>
+            <div className="mt-8 flex items-center justify-center gap-4">
+              <Sparkles className="text-amber-400" size={28} />
+              <span className="text-xl font-light text-amber-200 tracking-wider">Transformación Integral Garantizada</span>
+              <Sparkles className="text-amber-400" size={28} />
+            </div>
+          </div>
         </div>
 
-        <!-- Exclusivity Badge -->
-        <div class="exclusivity-badge">
-            <div class="exclusivity-border">
-                <p class="exclusivity-text">Programa Premium • Atención Personalizada • Acceso Exclusivo</p>
-            </div>
+        {/* Marca de exclusividad */}
+        <div className="mt-12 text-center">
+          <div className="inline-block border-2 border-amber-500/30 rounded-lg px-8 py-3">
+            <p className="text-amber-400/80 text-sm tracking-widest font-light">PROGRAMA PREMIUM • ATENCIÓN PERSONALIZADA • ACCESO EXCLUSIVO</p>
+          </div>
         </div>
+      </div>
     </div>
-
-    <script>
-        // Crear partículas de fondo
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 30; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            particlesContainer.appendChild(particle);
-        }
-
-        // Intersection Observer para animaciones de scroll
-        const observerOptions = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -80px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 200);
-                }
-            });
-        }, observerOptions);
-
-        // Observar las etapas
-        document.querySelectorAll('.stage').forEach(stage => {
-            observer.observe(stage);
-        });
-
-        // Observar las tarjetas de beneficios
-        document.querySelectorAll('.benefit-card').forEach((card, index) => {
-            const cardObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add('visible');
-                        }, index * 150);
-                    }
-                });
-            }, observerOptions);
-            
-            cardObserver.observe(card);
-        });
-
-        // Observar el header VIP
-        const vipHeader = document.querySelector('.vip-header');
-        if (vipHeader) {
-            observer.observe(vipHeader);
-        }
-
-        // Efecto parallax suave en scroll
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.stage-content');
-            
-            parallaxElements.forEach((el, index) => {
-                const speed = 0.05;
-                const yPos = -(scrolled * speed);
-                if (index % 2 === 0) {
-                    el.style.transform = `translateY(${yPos}px)`;
-                } else {
-                    el.style.transform = `translateY(${-yPos}px)`;
-                }
-            });
-        });
-    </script>
-</body>
-</html>="stage-subtitle">Identificar para Transformar</p>
-                    <p class
+  );
+}
